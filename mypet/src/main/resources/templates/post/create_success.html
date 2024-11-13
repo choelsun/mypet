@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>게시글 작성 완료</title>
+    <link rel="stylesheet" href="/css/styles.css"> <!-- 공통 스타일 추가 -->
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            text-align: center;
+            padding: 30px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #ff6f61; /* 메인 색상 강조 */
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            color: #555;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #ff6f61; /* 따뜻한 색상 */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #ff8a73; /* 버튼에 마우스 올렸을 때 조금 밝은 색상 */
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="~{layout/header :: header}"></div>
+    <div class="container">
+        <h1>게시글이 작성되었습니다!</h1>
+
+        <p>작성한 게시글을 확인하거나, 메인 페이지로 돌아가세요.</p>
+
+        <button onclick="location.href='/member/main'">메인으로</button>
+        <button onclick="location.href='/post/list'">목록으로</button>
+    </div>
+</body>
+</html>

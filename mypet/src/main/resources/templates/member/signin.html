@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>로그인 페이지</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <style>
+        .container {
+            margin-top: 100px;
+            max-width: 400px;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            width: calc(100% - 20px);
+            border: 1px solid #b2bec3;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px;
+            background-color: #0984e3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background-color: #74b9ff;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="~{layout/header :: header}"></div>
+    <div class="container">
+        <h1>로그인</h1>
+        <form action="/member/signin" method="post">
+            <input type="text" name="username" placeholder="이메일 입력하셈" required>
+            <input type="password" name="password" placeholder="비밀번호 입력하셈" required>
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                <button type="submit">로그인</button>
+                <a href="/member/signup">
+                    <button type="button">회원가입</button>
+                </a>
+            </div>
+        </form>
+        <div>
+            <p><a th:href="@{/oauth2/authorization/google}">구글 로그인</a></p>
+            <p><a th:href="@{/oauth2/authorization/naver}">네이버 로그인</a></p>
+        </div>
+    </div>
+</body>
+</html>

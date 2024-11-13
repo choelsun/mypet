@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <style>
+        .container {
+            margin-top: 100px;
+            max-width: 600px;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #6c5ce7;
+        }
+        p {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        a {
+            display: inline-block;
+            margin: 10px 5px;
+            color: #0984e3;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        a:hover {
+            color: #74b9ff;
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="~{layout/header :: header}"></div>
+    <div class="container">
+        <h2>내 정보</h2>
+        <p>이메일: <span th:text="${loggedInUser.email}"></span></p>
+        <p>이름: <span th:text="${loggedInUser.name}"></span></p>
+        <p>지역: <span th:text="${loggedInUser.cityArea}"></span> <span th:text="${loggedInUser.detailArea}"></span></p>
+        <p>전화번호: <span th:text="${loggedInUser.phone}"></span></p>
+
+        <a href="/member/verifyPassword">내 정보 수정</a>
+        <a href="/mypet/mypet">마이 펫</a>
+        <a href="/member/bye">회원 탈퇴</a>
+    </div>
+</body>
+</html>

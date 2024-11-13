@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>회원 탈퇴</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <style>
+        .container {
+            margin-top: 100px;
+            max-width: 600px;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="password"] {
+            padding: 10px;
+            margin: 10px 0;
+            width: calc(100% - 20px);
+            border: 1px solid #b2bec3;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px;
+            background-color: #e74c3c; /* 붉은색으로 탈퇴 강조 */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background-color: #ff7675;
+            transform: scale(1.05);
+        }
+        a {
+            margin-left: 10px;
+            color: #0984e3;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            color: #74b9ff;
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="~{layout/header :: header}"></div>
+    <div class="container">
+        <h2>회원 탈퇴</h2>
+        <p>정말로 탈퇴하시겠습니까? 탈퇴하려면 비밀번호를 입력해 주세요.</p>
+        <form th:action="@{/member/bye}" method="post">
+            <div>
+                <label for="password">현재 비밀번호:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div>
+                <button type="submit">탈퇴하기</button>
+                <a href="/member/myinfo">취소</a>
+            </div>
+            <div th:if="${error != null}">
+                <p th:text="${error}" style="color: red;"></p>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

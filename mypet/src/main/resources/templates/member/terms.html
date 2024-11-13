@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>약관 동의</title>
+    <link rel="stylesheet" href="/css/terms.css">
+</head>
+<body>
+    <header th:replace="~{layout/header :: header}"></header>
+
+    <main>
+        <h1>이용 약관 확인</h1>
+        <button id="openModalButton">약관 보기</button>
+        <button type="button" onclick="goToMain()">돌아가기</button>
+
+        <!-- 배경 흐림 효과 -->
+        <div class="overlay" id="overlay" style="display:none;"></div>
+
+        <!-- 모달 창 -->
+        <div class="terms-container" id="terms-container" style="display:none;">
+            <header class="terms-header">
+                약관 동의
+            </header>
+
+            <div class="terms-box">
+                <!-- 약관 내용을 Thymeleaf 프래그먼트로 삽입 -->
+                <div th:replace="~{layout/terms :: terms}"></div>
+            </div>
+
+            <div class="agreement">
+                <input type="checkbox" id="agree">
+                <label for="agree">약관에 동의합니다.</label>
+            </div>
+
+            <div class="footer-buttons">
+                <button id="nextButton" disabled>동의하고 회원가입</button>
+                <button type="button" onclick="closeModal()">닫기</button>
+            </div>
+        </div>
+    </main>
+
+    <form id="termsForm" action="/member/terms" method="post" style="display:none;">
+        <input type="hidden" name="agree" value="true">
+    </form>
+
+    <!-- JavaScript를 HTML의 끝부분으로 이동 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const checkbox = document.getElementById('agree');
+            const submitButton = document.getElementById('nextButton');
+            const overlay = document.getElementById('overlay');
+            const termsContainer = document.getElementById('terms-container');
+            const openModalButton = document.getElementById('openModalButton');
+
+            // 체크박스가 체크되었을 때 버튼 활성화
+            checkbox.addEventListener('change', () => {
+                submitButton.disabled = !checkbox.checked;
+            });
+
+            // 배경을 클릭하면 모달 창 닫기
+            overlay.addEventListener('click', closeModal);
+
+            // 모달 열기 버튼 클릭 이벤트 추가
+            openModalButton.addEventListener('click', openModal);
+
+            function openModal() {
+                termsContainer.style.display = 'flex';
+                overlay.style.display = 'block';
+            }
+
+            function closeModal() {
+                termsContainer.style.display = 'none';
+                overlay.style.display = 'none';
+            }
+
+            // 약관에 동의하고 회원가입 페이지로 이동
+            submitButton.addEventListener('click', function () {
+                if (checkbox.checked) {
+                    document.getElementById('termsForm').submit(); // 약관 동의 폼 제출
+                } else {
+                    alert("약관에 동의해야 합니다.");
+                }
+            });
+
+            // 돌아가기 버튼 클릭 시 메인 페이지로 이동
+            function goToMain() {
+                window.location.href = '/member/main';  // 메인 페이지로 리디렉션
+            }
+        });
+    </script>
+</body>
+</html>

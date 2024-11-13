@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>내 정보 수정</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <style>
+        .container {
+            margin-top: 100px;
+            max-width: 600px;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-weight: bold;
+        }
+        input {
+            padding: 10px;
+            margin: 10px 0;
+            width: calc(100% - 20px);
+            border: 1px solid #b2bec3;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px;
+            background-color: #0984e3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background-color: #74b9ff;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="~{layout/header :: header}"></div>
+    <div class="container">
+        <h2>내 정보 수정</h2>
+        <form th:action="@{/member/editprofile}" method="post" th:object="${loggedInUser}">
+            <div>
+                <label for="email">이메일:</label>
+                <input type="text" id="email" th:field="*{email}" readonly>
+            </div>
+            <div>
+                <label for="name">이름:</label>
+                <input type="text" id="name" th:field="*{name}" required>
+            </div>
+
+            <!-- 지역 선택 프래그먼트 사용 -->
+            <div th:replace="~{layout/area :: area(${loggedInUser.area}, ${loggedInUser.detailArea})}"></div>
+
+            <div>
+                <label for="phone">전화번호:</label>
+                <input type="text" id="phone" th:field="*{phone}">
+            </div>
+            <div>
+                <label for="password">새 비밀번호:</label>
+                <input type="password" id="password" th:field="*{password}" placeholder="●●●●●●●">
+            </div>
+            <div>
+                <button type="submit">수정하기</button>
+            </div>
+        </form>
+    </div>
+    <!-- JavaScript 추가 -->
+    <script src="/js/area.js" defer></script>
+</body>
+</html>

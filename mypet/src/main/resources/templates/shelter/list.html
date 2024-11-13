@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>보호소 목록</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e6f7ff; /* 부드러운 하늘색 배경 */
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            cursor: pointer; /* 행 클릭 가능하게 커서 변경 */
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center; /* 가운데 정렬 */
+            vertical-align: middle; /* 상하 중앙 정렬 */
+        }
+
+        th {
+            background-color: #b3e0ff; /* 부드러운 하늘색 톤 */
+            color: #333;
+        }
+
+        td {
+            height: 50px; /* 각 셀의 높이를 고정 */
+            white-space: normal; /* 여러 줄로 보여줄 수 있도록 설정 */
+        }
+
+        tr:nth-child(even) {
+            background-color: #f0f8ff; /* 짝수 줄 배경색 */
+        }
+
+        tr:hover {
+            background-color: #cceeff; /* 테이블 행 호버 시 강조 색상 */
+        }
+
+        a {
+            color: #3399ff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #0066cc;
+        }
+
+        .pagination ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .pagination li {
+            margin: 0 5px;
+        }
+
+        .pagination a {
+            text-decoration: none;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            color: #333;
+            display: inline-block;
+        }
+
+        .pagination a.disabled {
+            color: #aaa;
+            pointer-events: none; /* 클릭 불가능하도록 설정 */
+            border-color: #eee;
+        }
+
+        .pagination a.active {
+            font-weight: bold;
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+<header th:replace="~{layout/header :: header}"></header>
+
+<div class="container">
+    <h2>보호소 목록</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>보호소 이름</th>
+            <th>주소</th>
+            <th>연락처</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="shelter : ${shelterList}" th:data-href="@{/shelter/detail/{careNm}/{careAddr}(careNm=${shelter.careNm}, careAddr=${shelter.careAddr})}">
+            <td th:text="${shelter.careNm}"></td>
+            <td th:text="${shelter.careAddr}"></td>
+            <td th:text="${shelter.careTel}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="pagination">
+    <ul>
+        <!-- 맨 앞 페이지로 이동 -->
+        <li>
+            <a th:href="@{/shelter/list(pageNo=${1}, numOfRows=${numOfRows})}"
+               th:classappend="${currentPage == 1} ? 'disabled' : ''">&laquo;</a>
+        </li>
+
+        <!-- 이전 페이지 그룹으로 이동 -->
+        <li th:if="${currentStartPage > 1}">
+            <a th:href="@{/shelter/list(pageNo=${currentStartPage - 1}, numOfRows=${numOfRows})}">&lt;</a>
+        </li>
+
+        <!-- 현재 페이지 그룹 내 페이지 번호 표시 -->
+        <li th:each="i : ${#numbers.sequence(currentStartPage, currentEndPage)}">
+            <a th:href="@{/shelter/list(pageNo=${i}, numOfRows=${numOfRows})}"
+               th:text="${i}"
+               th:classappend="${currentPage == i} ? 'active' : ''"></a>
+        </li>
+
+        <!-- 다음 페이지 그룹으로 이동 -->
+        <li th:if="${currentEndPage < totalPages}">
+            <a th:href="@{/shelter/list(pageNo=${currentEndPage + 1}, numOfRows=${numOfRows})}">&gt;</a>
+        </li>
+
+        <!-- 맨 마지막 페이지로 이동 -->
+        <li>
+            <a th:href="@{/shelter/list(pageNo=${totalPages}, numOfRows=${numOfRows})}"
+               th:classappend="${currentPage == totalPages} ? 'disabled' : ''">&raquo;</a>
+        </li>
+    </ul>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 페이지를 넘길 때 스크롤 위치 유지
+        if (sessionStorage.getItem('scrollPosition')) {
+            window.scrollTo(0, sessionStorage.getItem('scrollPosition'));
+            sessionStorage.removeItem('scrollPosition');
+        }
+
+        window.addEventListener('beforeunload', function () {
+            sessionStorage.setItem('scrollPosition', window.scrollY);
+        });
+
+        // 테이블 행 클릭 시 이동
+        const rows = document.querySelectorAll('table tbody tr');
+        rows.forEach(row => {
+            row.addEventListener('click', function () {
+                const href = this.getAttribute('data-href');
+                if (href) {
+                    window.location.href = href;
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

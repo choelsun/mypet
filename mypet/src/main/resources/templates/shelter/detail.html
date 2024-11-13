@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>보호소 상세 정보</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e6f7ff; /* 부드러운 하늘색 배경 */
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #3399ff; /* 제목 강조 */
+        }
+
+        p {
+            font-size: 1.1em;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #b3e0ff; /* 부드러운 하늘색 톤 */
+            color: #333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f0f8ff; /* 짝수 줄 배경색 */
+        }
+
+        tr:hover {
+            background-color: #cceeff; /* 테이블 행 호버 시 강조 색상 */
+        }
+
+        a {
+            color: #3399ff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #0066cc;
+        }
+    </style>
+</head>
+<body>
+<header th:replace="~{layout/header :: header}"></header>
+
+<div class="container">
+    <h2 th:text="${shelterDetail.careNm}">보호소 이름</h2>
+    <p><strong>주소:</strong> <span th:text="${shelterDetail.careAddr}">보호소 주소</span></p>
+    <p><strong>연락처:</strong> <span th:text="${shelterDetail.careTel}">보호소 연락처</span></p>
+    <p><strong>저장 대상 동물:</strong> <span th:text="${shelterDetail.saveTrgtAnimal}">보호소 동물 종류</span></p>
+
+    <h3>보호 중인 동물 목록</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>동물 종류</th>
+            <th>나이</th>
+            <th>발견 장소</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="animal : ${animalList}">
+            <td th:text="${animal.classification}">동물 종류</td>
+            <td th:text="${animal.age}">나이</td>
+            <td th:text="${animal.foundPlace}">발견 장소</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer th:replace="~{layout/footer :: footer}"></footer>
+</body>
+</html>

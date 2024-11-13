@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>게시글 목록</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <style>
+        .post-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.3s, transform 0.2s;
+            cursor: pointer;
+        }
+        .post-item:hover {
+            background-color: #e6f7ff;
+            transform: translateY(-3px);
+        }
+        .post-item a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+            height: 100%;
+            width: 100%;
+        }
+        .comment-count {
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="~{layout/header :: header}"></div>
+    <div class="container">
+        <h1>게시글 목록</h1>
+        <div th:each="post : ${posts}" class="post-item">
+            <a th:href="@{/post/detail/{id}(id=${post.id})}">
+                <h2 th:text="${post.title}">게시글 제목</h2>
+                <p th:text="${post.writer}">작성자</p>
+                <p class="comment-count" th:text="'댓글: ' + ${post.comments.size()} + '개'">댓글 수</p> <!-- 댓글 수 표시 -->
+            </a>
+        </div>
+        <a href="/post/create" class="btn">새 글 작성</a>
+    </div>
+</body>
+</html>

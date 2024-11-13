@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Animal List</title>
+</head>
+<body>
+    <h1>유기동물 목록</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>분류</th> <!-- 동물 분류 -->
+                <th>품종</th> <!-- 품종 -->
+                <th>성별</th> <!-- 성별 -->
+                <th>나이</th> <!-- 나이 -->
+                <th>발견 장소</th> <!-- 발견 장소 -->
+                <th>구조일</th> <!-- 구조일 -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="animal : ${animalList}">
+                <td th:text="${animal.classification}"></td> <!-- 동물 분류 -->
+                <td th:text="${animal.species}"></td> <!-- 품종 -->
+                <td th:text="${animal.gender}"></td> <!-- 성별 -->
+                <td th:text="${animal.age}"></td> <!-- 나이 -->
+                <td th:text="${animal.foundPlace}"></td> <!-- 발견 장소 -->
+                <td th:text="${animal.rescueDate}"></td> <!-- 구조일 -->
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

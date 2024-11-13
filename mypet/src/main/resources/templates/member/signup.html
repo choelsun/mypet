@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <style>
+        .container {
+            margin-top: 100px;
+            max-width: 600px;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #b2bec3;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px;
+            background-color: #0984e3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background-color: #74b9ff;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div th:replace="~{layout/header :: header}"></div>
+    <div class="container">
+        <h2>회원가입</h2>
+        <form id="signupForm" th:action="@{/member/signup}" method="post">
+            <!-- 이메일 입력, 도메인 선택 -->
+            <div class="form-group">
+                <input class="form-control" placeholder="이메일을 입력해주세요." name="email" id="email" type="text" required autofocus>
+                <div style="display: block;">
+                    <select id="domain" name="domain" required>
+                        <option value="">--선택--</option>
+                        <option value='gmail.com'>구글</option>
+                        <option value='kakao.com'>카카오</option>
+                        <option value='naver.com'>네이버</option>
+                    </select>
+                </div>
+                <span id="emailMessage" style="color: red;"></span>
+                <button type="button" class="btn btn-primary" onclick="sendVerificationCode()">인증 코드 전송</button>
+            </div>
+            <!-- 인증 코드, 비밀번호, 이름 등 -->
+            <div class="form-group mt-3">
+                <label for="verificationCode">인증 코드</label>
+                <input class="form-control" placeholder="인증 코드를 입력해주세요." name="verificationCode" id="verificationCode" type="text" required>
+                <span id="verificationMessage" style="color: red;"></span>
+            </div>
+            <div class="form-group">
+                <input class="form-control" placeholder="비밀번호를 입력해주세요." name="password" id="password" type="password" required>
+                <span id="passwordMessage" style="color: red;"></span>
+            </div>
+            <div class="form-group">
+                <input class="form-control" placeholder="비밀번호를 다시 입력해주세요." name="confirmPassword" id="confirmPassword" type="password" required>
+                <span id="confirmPasswordMessage" style="color: red;"></span>
+            </div>
+            <div class="form-group">
+                <input class="form-control" placeholder="MyPet에서 쓸 이름을 입력해주세요" name="name" id="name" type="text" required>
+            </div>
+            <div class="form-group">
+                <input class="form-control" placeholder="-를 제외한 숫자만 입력해주세요" name="phone" id="phone" type="tel" required>
+            </div>
+            <!-- 지역 선택 -->
+            <div th:replace="~{layout/area :: area('-선택-', '-선택-')}" th:remove="tag"></div>
+            
+            <button type="submit" class="btn btn-success">가입하기</button>
+        </form>
+    </div>
+    <script src="/js/area.js"></script> 
+    <script src="/js/signup.js"></script> 
+</body>
+</html>

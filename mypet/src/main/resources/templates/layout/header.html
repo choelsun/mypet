@@ -1,0 +1,21 @@
+<!-- header.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="header">
+    <link rel="stylesheet" href="/css/header.css">
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/member/main" class="logo">MyPet</a></li>
+                <li><a href="/shelter/list">입양</a></li>
+                <li th:if="${loggedInUser == null}"><a href="/member/terms">회원가입</a></li>
+                <li th:if="${loggedInUser == null}"><a href="/member/signin">로그인</a></li>
+                <li th:if="${loggedInUser != null}"><a href="/post/list">POST</a></li>
+                <li th:if="${loggedInUser != null}">
+                    <a href="/member/myinfo">환영합니다 <span th:text="${loggedInUser.name}"></span>님</a>
+                </li>
+                <li th:if="${loggedInUser != null}"><a href="/logout">로그아웃</a></li>
+            </ul>
+        </nav>
+    </header>
+</th:block>

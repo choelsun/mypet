@@ -1,0 +1,120 @@
+/* header.css */
+body {
+    font-family: 'Noto Sans KR', Arial, sans-serif; /* 부드러운 한글 서체 추가 */
+    line-height: 1.6;
+    background-color: #f8f9fa; /* 더 밝은 중립적인 회색 배경 */
+    color: #2e2e2e; /* 기본 텍스트 색상 */
+    padding-top: 70px; /* 네비게이션 바 높이만큼 위쪽 패딩 추가 */
+}
+
+header {
+    position: fixed; /* 네비게이션 바를 상단에 고정 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #6c5ce7; /* 부드러운 보라색 계열 */
+    color: #f8f9fa; /* 텍스트는 밝은 회색으로 */
+    padding: 15px 0; /* 상단과 하단에 여백 추가 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 살짝 그림자 효과로 고정된 느낌 강조 */
+    z-index: 1000; /* 다른 요소보다 위에 위치하도록 설정 */
+    display: flex;
+    align-items: center; /* 세로 방향 중앙 정렬 */
+}
+
+header nav {
+    width: 100%;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* 세로 방향 중앙 정렬 추가 */
+    padding: 0;
+    margin: 0;
+}
+
+header nav ul li {
+    margin: 0 20px;
+}
+
+header nav ul li a {
+    color: #f8f9fa; /* 흰색 계열로 텍스트 */
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s, transform 0.2s;
+    line-height: 1.6; /* 글자에 추가적인 여백을 주어 네비게이션의 중앙에 오도록 */
+}
+
+header nav ul li a:hover {
+    color: #a29bfe; /* 밝은 연보라색으로 변화 */
+    transform: scale(1.05); /* 살짝 확대 효과 */
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: #dfe6e9; /* 로고 색상을 밝은 그레이로 */
+    transition: color 0.3s;
+}
+
+.logo:hover {
+    color: #ffffff; /* 로고 마우스 오버 시 흰색으로 */
+}
+
+/* 페이지 공통 스타일 */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #ffffff; /* 깔끔한 흰색 배경 */
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+form {
+    background: #ffffff; /* 폼의 배경을 흰색으로 */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+button, .btn {
+    padding: 10px;
+    background-color: #0984e3; /* 부드러운 파란색 계열 */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover, .btn:hover {
+    background-color: #74b9ff; /* 클릭할 때 더 밝은 파란색으로 */
+    transform: scale(1.05);
+}
+
+input {
+    padding: 10px;
+    margin: 10px 0;
+    width: calc(100% - 20px);
+    border: 1px solid #b2bec3; /* 부드러운 회색 테두리로 변경 */
+    border-radius: 5px;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+    header nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .container {
+        width: 95%;
+    }
+
+    form {
+        width: 100%;
+    }
+}

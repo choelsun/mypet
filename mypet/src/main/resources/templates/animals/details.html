@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Animal Details</title>
+</head>
+<body>
+    <h1>동물 세부 정보</h1>
+    <div>
+        <p>분류: <span th:text="${animal.classification}"></span></p> <!-- 동물 분류 -->
+        <p>품종: <span th:text="${animal.species}"></span></p> <!-- 품종 -->
+        <p>성별: <span th:text="${animal.gender}"></span></p> <!-- 성별 -->
+        <p>나이: <span th:text="${animal.age}"></span></p> <!-- 나이 -->
+        <p>발견 장소: <span th:text="${animal.foundPlace}"></span></p> <!-- 발견 장소 -->
+        <p>구조일: <span th:text="${animal.rescueDate}"></span></p> <!-- 구조일 -->
+    </div>
+</body>
+</html>
